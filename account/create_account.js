@@ -13,100 +13,76 @@ let lastAccountID = fs.existsSync(counterFile) ? parseInt(fs.readFileSync(counte
 
 // Function to validate name input
 function validateName(input, fieldName) {
-  if (!input || input.trim() === "") {
-    console.log(`\nError: ${fieldName} cannot be empty. Please try again.\n`);
-    return false;
-  }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log(`\nError: ${fieldName} must contain only letters, spaces, or hyphens. Please try again.\n`);
-    return false;
+  //TODO: Ensure name contains only letters, spaces or hypens
+  
   }
   return true;
 }
 
 // Function to validate date of birth (DD-MM-YYYY)
 function validateDOB(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Date of Birth cannot be empty. Please try again.\n");
-    return false;
+    // TODO: Check if the date follows the format and is a valid date
+
   }
 
   // Check if the input matches the DD-MM-YYYY format
-  const datePattern = /^\d{2}-\d{2}-\d{4}$/;
-  if (!datePattern.test(input)) {
-    console.log("\nError: Date of Birth must be in the format DD-MM-YYYY. Please try again.\n");
-    return false;
+  if () {
+    
   }
 
   // Split the input into day, month, and year
-  const [day, month, year] = input.split("-").map(Number);
 
   // Validate the month (1–12)
-  if (month < 1 || month > 12) {
-    console.log("\nError: Invalid month. Please enter a valid month (1–12).\n");
-    return false;
+  if () {
+    
   }
 
   // Validate the day based on the month
-  const daysInMonth = new Date(year, month, 0).getDate(); // Get the last day of the month
-  if (day < 1 || day > daysInMonth) {
-    console.log(`\nError: Invalid day. The month ${month} has ${daysInMonth} days. Please try again.\n`);
-    return false;
+  // Get the last day of the month
+  if () {
+    
   }
 
   // Check if the date is valid (e.g., not 31-02-2000)
-  const dob = new Date(`${year}-${month}-${day}`);
-  if (isNaN(dob.getTime())) {
-    console.log("\nError: Invalid date. Please enter a valid date.\n");
-    return false;
-  }
+  
+  
 
   // Calculate the age
   const today = new Date();
-  let age = today.getFullYear() - dob.getFullYear();
-  const monthDiff = today.getMonth() - dob.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-    age--;
+ 
   }
 
   // Validate age constraints
-  if (age < 17) {
-    console.log("\nError: You must be at least 17 years old.\n");
-    return false;
+  if () {
+   
   }
 
-  if (age > 100) {
-    console.log("\nError: Unfortunately, we cannot process accounts for individuals over 100 years old.\n");
-    return false;
-  }
+
 
   return true;
 }
 
 // Function to validate address
 function validateAddress(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Address cannot be empty. Please try again.\n");
-    return false;
+    // TODO: Ensure email follows a proper format (e.g., example@mail.com)
+
   }
-  if (!/^[A-Za-z0-9\s\-,.#]+$/.test(input)) {
+  if ()) {
     console.log("\nError: Address contains invalid characters. Please try again.\n");
     return false;
   }
-  if (input.length < 5 || input.length > 100) {
-    console.log("\nError: Address must be between 5 and 100 characters long.\n");
+  if () {
     return false;
   }
   return true;
 }
 
+//Function to validate Occupation
 function validateOccupation(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Occupation cannot be empty. Please try again.\n");
+  if () {
     return false;
   }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log("\nError: Occupation must contain only letters, spaces, or hyphens. Please try again.\n");
+  if () {
     return false;
   }
   return true;
@@ -114,12 +90,10 @@ function validateOccupation(input) {
 
 // Function to validate occupation
 function validateOccupation(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Occupation cannot be empty. Please try again.\n");
+  if () {
     return false;
   }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log("\nError: Occupation must contain only letters, spaces, or hyphens. Please try again.\n");
+  if () {
     return false;
   }
   return true;
@@ -127,14 +101,12 @@ function validateOccupation(input) {
 
 // Function to validate email address
 function validateEmail(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Email address cannot be empty. Please try again.\n");
+  if () {
     return false;
   }
    // Regular expression to validate email format
    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   if (!emailPattern.test(input)) {
-     console.log("\nError: Invalid email address format. Please try again.\n");
+   if () {
      return false;
    }
  
@@ -156,9 +128,9 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askLastName = () => {
-    reader.question("Last Name: ", (lastName) => {
-      if (validateName(lastName, "Last Name")) {
-        account.lastName = lastName;
+    reader.question("", () => {
+      if (( , " ")) {
+    
         askDOB();
       } else {
         askLastName(); // Re-prompt if validation fails
@@ -167,32 +139,28 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askDOB = () => {
-    reader.question("Date of Birth (DD-MM-YYYY): ", (dob) => {
-      if (validateDOB(dob)) {
-        account.dob = dob;
-        askAddress();
+    reader.question(
+      if () {
+        
       } else {
-        askDOB(); // Re-prompt if validation fails
+         // Re-prompt if validation fails
       }
     });
   };
 
   const askAddress = () => {
-    reader.question("Address: ", (address) => {
-      if (validateAddress(address)) {
-        account.address = address;
-        askOccupation();
+  
+        
       } else {
-        askAddress(); // Re-prompt if validation fails
+        // Re-prompt if validation fails
       }
     });
   };
 
   const askOccupation = () => {
-    reader.question("Occupation: ", (occupation) => {
-      if (validateOccupation(occupation)) {
-        account.occupation = occupation;
-        askEmailAddress(account, () => {
+
+      if () {
+        
         console.log();
         // Save the account to the JSON file
         fileHandler.saveToFile(account);
@@ -210,8 +178,8 @@ function askForChoice(account, parentMenu, mainMenu) {
 }
 const askEmailAddress = (account, nextStep) => {
   reader.question("Email Address: ", (email) => {
-    if (validateEmail(email)) {
-      account.email = email; // Save the email to the account object
+    if (()) {
+       // Save the email to the account object
       nextStep(); // Proceed to the next step
     } else {
       askEmailAddress(account, nextStep); // Re-prompt if validation fails
@@ -286,15 +254,11 @@ function viewCreatedAccount(account, mainMenu) {
   const accounts = fileHandler.retrieveFromFile(); // Read all accounts from the file
   const createdAccount = accounts.find((acc) => acc.id === account.id); // Find the newly created account
 
+  //View the newly created Accounts Details 
   if (createdAccount) {
     console.log(`\nViewing Created Account:\n`);
     console.log(`${colours.gold}----------------------------------------${colours.reset}`);
-    console.log(`First Name: ${account.firstName || "N/A"}`);
-    console.log(`Last Name: ${account.lastName || "N/A"}`);
-    console.log(`Date of Birth: ${account.dob || "N/A"}`);
-    console.log(`Address: ${account.address || "N/A"}`);
-    console.log(`Occupation: ${account.occupation || "N/A"}`);
-    console.log(`Email Address: ${account.email || "N/A"}`);
+    //Here should print the Newly created Account details
     console.log(`${colours.gold}----------------------------------------${colours.reset}\n`);
   } else {
     console.log("\Account not found.\n");

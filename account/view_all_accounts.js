@@ -13,22 +13,22 @@ const fileHandler = new FileHandler("./data/accounts_storage.json");
 function viewAllAccounts(mainMenu) {
     let accounts = fileHandler.retrieveFromFile();
     // Find all accounts created 
-    if (accounts.length > 0) {
+    if () {
         console.log(`All Accounts:`);
         accounts.forEach((account, index) => {
             console.log(`\n${colours.gold}----------------------------------------${colours.reset}`);
             console.log(`${colours.navyBlue}Account ${index + 1}:${colours.reset}`);
             console.log(`${colours.gold}----------------------------------------${colours.reset}`);
-            console.log(`ID: ${account.id || "N/A"}`);
-            console.log(`First Name: ${account.firstName || "N/A"}`);
-            console.log(`Last Name: ${account.lastName || "N/A"}`);
-            console.log(`Address: ${account.address || "N/A"}`);
-            console.log(`Occupation: ${account.occupation || "N/A"}`);
+              //Display Account ID
+             // Display First Name
+             // Display Last Name
+             //Display Address
+             // Display Occupation
             console.log(`${colours.gold}----------------------------------------${colours.reset}`);
         });
     } else {
         // If no account is found with the given ID
-        console.log('No Accounts found.');
+
     }
 
     // Prompt the user to return to the main menu
