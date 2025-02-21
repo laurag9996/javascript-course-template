@@ -13,132 +13,92 @@ let lastAccountID = fs.existsSync(counterFile) ? parseInt(fs.readFileSync(counte
 
 // Function to validate name input
 function validateName(input, fieldName) {
-  if (!input || input.trim() === "") {
-    console.log(`\nError: ${fieldName} cannot be empty. Please try again.\n`);
-    return false;
-  }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log(`\nError: ${fieldName} must contain only letters, spaces, or hyphens. Please try again.\n`);
-    return false;
-  }
-  return true;
+
+ //Spec 5.1: Ensure name contains only letters, spaces or hypens
+
 }
 
 // Function to validate date of birth (DD-MM-YYYY)
 function validateDOB(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Date of Birth cannot be empty. Please try again.\n");
-    return false;
+
+   /* Spec 5.2: Check if the date follows the format and is a valid date 
+
+          - Check if at least one coverage option is selected before proceeding.  
+          - If no coverage is selected, display an error message and re-prompt the user.  
+          - If valid, store selected coverages in `policy.coverages` and call `calculatePremium(account)`.  
+          - Check if the input matches the DD-MM-YYYY format
+          - Check if the date is valid (e.g., not 31-02-2000)
+          - Calculate the age
+          - Validate age contraints
+        */
+
   }
-
-  // Check if the input matches the DD-MM-YYYY format
-  const datePattern = /^\d{2}-\d{2}-\d{4}$/;
-  if (!datePattern.test(input)) {
-    console.log("\nError: Date of Birth must be in the format DD-MM-YYYY. Please try again.\n");
-    return false;
-  }
-
-  // Split the input into day, month, and year
-  const [day, month, year] = input.split("-").map(Number);
-
-  // Validate the month (1–12)
-  if (month < 1 || month > 12) {
-    console.log("\nError: Invalid month. Please enter a valid month (1–12).\n");
-    return false;
-  }
-
-  // Validate the day based on the month
-  const daysInMonth = new Date(year, month, 0).getDate(); // Get the last day of the month
-  if (day < 1 || day > daysInMonth) {
-    console.log(`\nError: Invalid day. The month ${month} has ${daysInMonth} days. Please try again.\n`);
-    return false;
-  }
-
-  // Check if the date is valid (e.g., not 31-02-2000)
-  const dob = new Date(`${year}-${month}-${day}`);
-  if (isNaN(dob.getTime())) {
-    console.log("\nError: Invalid date. Please enter a valid date.\n");
-    return false;
-  }
-
-  // Calculate the age
-  const today = new Date();
-  let age = today.getFullYear() - dob.getFullYear();
-  const monthDiff = today.getMonth() - dob.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-    age--;
-  }
-
-  // Validate age constraints
-  if (age < 17) {
-    console.log("\nError: You must be at least 17 years old.\n");
-    return false;
-  }
-
-  if (age > 100) {
-    console.log("\nError: Unfortunately, we cannot process accounts for individuals over 100 years old.\n");
-    return false;
-  }
-
-  return true;
-}
-
+  
 // Function to validate address
 function validateAddress(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Address cannot be empty. Please try again.\n");
+
+   /* Spec 5.3: Validate Address
+  
+        - Ensure email follows a proper format (e.g., example@mail.com)
+        - Display an error message if validation fails.
+ */
+  
+  if (null) {
     return false;
   }
-  if (!/^[A-Za-z0-9\s\-,.#]+$/.test(input)) {
-    console.log("\nError: Address contains invalid characters. Please try again.\n");
+  if (null) {    
     return false;
   }
-  if (input.length < 5 || input.length > 100) {
-    console.log("\nError: Address must be between 5 and 100 characters long.\n");
+  if (null) { 
     return false;
   }
   return true;
 }
 
-function validateOccupation(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Occupation cannot be empty. Please try again.\n");
-    return false;
-  }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log("\nError: Occupation must contain only letters, spaces, or hyphens. Please try again.\n");
-    return false;
-  }
-  return true;
-}
 
 // Function to validate occupation
 function validateOccupation(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Occupation cannot be empty. Please try again.\n");
+
+   /* Spec 5.4: Validate Occupation  
+
+    - Ensure the input is not empty.  
+    - Allow only alphabetic characters, spaces, and hyphens.  
+    - Display an error message if validation fails.  
+  */
+
+  if (null) {
     return false;
   }
-  if (!/^[A-Za-z\s-]+$/.test(input)) {
-    console.log("\nError: Occupation must contain only letters, spaces, or hyphens. Please try again.\n");
+  if (null) {
+    
     return false;
   }
   return true;
 }
 
+
 // Function to validate email address
 function validateEmail(input) {
-  if (!input || input.trim() === "") {
-    console.log("\nError: Email address cannot be empty. Please try again.\n");
-    return false;
-  }
-   // Regular expression to validate email format
-   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   if (!emailPattern.test(input)) {
-     console.log("\nError: Invalid email address format. Please try again.\n");
-     return false;
-   }
- 
-   return true;
+
+   /* Spec 5.5: Validate Email  
+
+    - Ensure the input is not empty.  
+    - Validate email format (e.g., example@mail.com).  
+    - Display an error message if validation fails.  
+  */
+
+    if (null) {
+      return false;
+    }
+     // Regular expression to validate email format
+     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+     if (null) {
+       return false;
+     }
+   
+     return true;
+
  }
 
 // Function to ask for account details with validation
@@ -155,11 +115,16 @@ function askForChoice(account, parentMenu, mainMenu) {
     });
   };
 
+  /* Spec 5.6: Prompt user for the following:
+
+      - Validate the input   
+      - If validation fails, display an error message and re-prompt.  
+      - If valid, store the information and proceed to ask for next detail 
+  */
+
   const askLastName = () => {
-    reader.question("Last Name: ", (lastName) => {
-      if (validateName(lastName, "Last Name")) {
-        account.lastName = lastName;
-        askDOB();
+    reader.question("", () => {
+      if (null( null, "")) {
       } else {
         askLastName(); // Re-prompt if validation fails
       }
@@ -167,10 +132,8 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askDOB = () => {
-    reader.question("Date of Birth (DD-MM-YYYY): ", (dob) => {
-      if (validateDOB(dob)) {
-        account.dob = dob;
-        askAddress();
+    reader.question("", () => {
+      if (null()) {
       } else {
         askDOB(); // Re-prompt if validation fails
       }
@@ -178,10 +141,8 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askAddress = () => {
-    reader.question("Address: ", (address) => {
-      if (validateAddress(address)) {
-        account.address = address;
-        askOccupation();
+    reader.question("", () => {
+      if (null()) {
       } else {
         askAddress(); // Re-prompt if validation fails
       }
@@ -189,9 +150,8 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askOccupation = () => {
-    reader.question("Occupation: ", (occupation) => {
-      if (validateOccupation(occupation)) {
-        account.occupation = occupation;
+    reader.question("", () => {
+      if (null()) {
         askEmailAddress(account, () => {
         console.log();
         // Save the account to the JSON file
@@ -209,9 +169,9 @@ function askForChoice(account, parentMenu, mainMenu) {
   askFirstName(); // Start the process
 }
 const askEmailAddress = (account, nextStep) => {
-  reader.question("Email Address: ", (email) => {
-    if (validateEmail(email)) {
-      account.email = email; // Save the email to the account object
+  reader.question("", () => {
+    if (null()) {
+      // Save the email to the account object
       nextStep(); // Proceed to the next step
     } else {
       askEmailAddress(account, nextStep); // Re-prompt if validation fails

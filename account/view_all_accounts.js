@@ -9,7 +9,7 @@ const ConsoleColours = require("../utility/console_colours");
 const colours = new ConsoleColours();
 const fileHandler = new FileHandler("./data/accounts_storage.json");
 
-// Function to view all accounts created ******
+// Function to view all accounts created
 function viewAllAccounts(mainMenu) {
     let accounts = fileHandler.retrieveFromFile();
     // Find all accounts created 
@@ -19,16 +19,28 @@ function viewAllAccounts(mainMenu) {
             console.log(`\n${colours.gold}----------------------------------------${colours.reset}`);
             console.log(`${colours.navyBlue}Account ${index + 1}:${colours.reset}`);
             console.log(`${colours.gold}----------------------------------------${colours.reset}`);
-            console.log(`ID: ${account.id || "N/A"}`);
-            console.log(`First Name: ${account.firstName || "N/A"}`);
-            console.log(`Last Name: ${account.lastName || "N/A"}`);
-            console.log(`Address: ${account.address || "N/A"}`);
-            console.log(`Occupation: ${account.occupation || "N/A"}`);
+            
+            /* Spec 7.1: Retrieve and Validate Account Data  
+
+                     - If no accounts exist, display `"No Accounts found."` and return to the main menu.  
+      
+               Spec 7.2: Loop Through and Display Account Details  
+
+                     - Loop through the `accounts` array.  
+                     - Display the following details for each account:  
+                     - Account ID  
+                     - First Name  
+                     - Last Name  
+                     - Address  
+                     - Occupation 
+                     - Email 
+                     - Ensure missing values display `"N/A"`.  
+            */
+    
             console.log(`${colours.gold}----------------------------------------${colours.reset}`);
         });
     } else {
         // If no account is found with the given ID
-        console.log('No Accounts found.');
     }
 
     // Prompt the user to return to the main menu
