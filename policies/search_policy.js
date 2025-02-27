@@ -115,7 +115,7 @@ function searchQueriedPolicy(query, policiesMenu, mainMenu) {
 function askToTryAgain(policiesMenu, mainMenu) {
   const ask = () => {
 
-/* Spec: Ask the user if they want to try again
+/* Spec 1.4: Ask the user if they want to try again
 
     - Use reader.question to prompt: "Do you want to try searching again? (yes/no)"
     - Validate input using validateYesNoInput function
