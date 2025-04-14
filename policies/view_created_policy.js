@@ -10,6 +10,8 @@ function viewCreatedPolicy(account, mainMenu) {
   const accounts = fileHandler.retrieveFromFile();
 
   const accountData = accounts.find((acc) => acc.id === account.id);
+
+  
   if (!accountData) {
     console.log("Account not found.");
     return;
@@ -29,6 +31,15 @@ function viewCreatedPolicy(account, mainMenu) {
   console.log(`Viewing Latest Created Policy for Account: ${account.id}`);
   console.log(`${colours.gold}----------------------------------------${colours.reset}`);
 
+  /* Spec 3.1: Print Policy Details
+
+   - Display key policy details (handling missing values with `|| "N/A"`).
+   - Concatenate `firstName` and `lastName` for policy holder's name.
+   - Handle convictions list
+   - Format and display premium
+   - Handle missing values
+*/
+
   console.log(`\n${colours.navyBlue}Policy Details:${colours.reset}`);
   console.log(`Policy Holder: ${accountData.firstName + " " + accountData.lastName || "N/A"}`);
   console.log(`Policy Number: ${latestPolicy.policyNumber || "N/A"}`);
@@ -40,31 +51,41 @@ function viewCreatedPolicy(account, mainMenu) {
 
   if (latestPolicy.vehicles && latestPolicy.vehicles.length > 0) {
     console.log(`\n${colours.grey}Vehicles:${colours.reset}`);
-    latestPolicy.vehicles.forEach((vehicle, vIndex) => {
-      console.log(`  Vehicle ${vIndex + 1}:`);
-      console.log(`    Model: ${vehicle.carModel || "N/A"}`);
-      console.log(`    Registration: ${vehicle.carReg || "N/A"}`);
-      console.log(`    Mileage: ${vehicle.mileage || "N/A"}`);
-      console.log(`    Modifications: ${vehicle.mods && vehicle.mods.length > 0 ? vehicle.mods.join(", ") : "N/A"}`);
-    });
+
+    /* Spec 3.2: Loop Through Vehicles
+
+       - Iterate over `latestPolicy.vehicles` using `.forEach()`.
+       - Use an index to number each vehicle.
+       - Print `carModel`, `carReg` (registration), `mileage`, and `mods` (modifications).
+       - Use `|| "N/A"` to handle missing values
+    */
   }
 
   if (latestPolicy.coverages && latestPolicy.coverages.length > 0) {
     console.log(`\n${colours.grey}Coverages:${colours.reset}`);
-    latestPolicy.coverages.forEach((coverage, cIndex) => {
-      console.log(`  Coverage ${cIndex + 1}:`);
-      console.log(`    Type: ${coverage.coverageType || "N/A"}`);
-    });
+
+   /* Spec 3.3: Loop Through Coverages
+
+       - Iterate over `latestPolicy.coverages` using `.forEach()`.
+       - Use `cIndex` to number each coverage.
+       - Print coverage number and type
+       - Handle missing values
+       
+    */
   }
 
   if (latestPolicy.policyPeriods && latestPolicy.policyPeriods.length > 0) {
-    console.log(`\n${colours.grey}Policy Periods:${colours.reset}`);
-    latestPolicy.policyPeriods.forEach((period, pIndex) => {
-      console.log(`  Period ${pIndex + 1}:`);
-      console.log(`    Start Date: ${period.startDate || "N/A"}`);
-      console.log(`    End Date: ${period.endDate || "N/A"}`);
-      console.log(`    Premium: £${period.premium.toFixed(2) || "N/A"}`);
-    });
+     
+    /* Spec 3.4: Loop Through Policy Periods
+
+       - Iterate over `latestPolicy.policyPeriods` using `.forEach()`
+       - Use `pIndex` to number each period
+       - Print policy Period Number (display "Period X where X is 'pIndex +1')
+       - Display 'startDate' and 'endDate'
+       - Ensure 'premium' is formatted as currency
+       - Handle missing values
+
+    */
   }
 
   console.log(`${colours.gold}----------------------------------------${colours.reset}`);

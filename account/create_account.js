@@ -13,104 +13,92 @@ let lastAccountID = fs.existsSync(counterFile) ? parseInt(fs.readFileSync(counte
 
 // Function to validate name input
 function validateName(input, fieldName) {
-  //TODO: Ensure name contains only letters, spaces or hypens
-  
-  }
-  return true;
+
+ //Spec 5.1: Ensure name contains only letters, spaces or hypens
+
 }
 
 // Function to validate date of birth (DD-MM-YYYY)
 function validateDOB(input) {
-    // TODO: Check if the date follows the format and is a valid date
+
+   /* Spec 5.2: Check if the date follows the format and is a valid date 
+
+          - Check if at least one coverage option is selected before proceeding.  
+          - If no coverage is selected, display an error message and re-prompt the user.  
+          - If valid, store selected coverages in `policy.coverages` and call `calculatePremium(account)`.  
+          - Check if the input matches the DD-MM-YYYY format
+          - Check if the date is valid (e.g., not 31-02-2000)
+          - Calculate the age
+          - Validate age contraints
+        */
 
   }
-
-  // Check if the input matches the DD-MM-YYYY format
-  if () {
-    
-  }
-
-  // Split the input into day, month, and year
-
-  // Validate the month (1–12)
-  if () {
-    
-  }
-
-  // Validate the day based on the month
-  // Get the last day of the month
-  if () {
-    
-  }
-
-  // Check if the date is valid (e.g., not 31-02-2000)
   
-  
-
-  // Calculate the age
-  const today = new Date();
- 
-  }
-
-  // Validate age constraints
-  if () {
-   
-  }
-
-
-
-  return true;
-}
-
 // Function to validate address
 function validateAddress(input) {
-    // TODO: Ensure email follows a proper format (e.g., example@mail.com)
 
-  }
-  if ()) {
-    console.log("\nError: Address contains invalid characters. Please try again.\n");
+   /* Spec 5.3: Validate Address
+  
+        - Ensure email follows a proper format (e.g., example@mail.com)
+        - Display an error message if validation fails.
+ */
+  
+  if (null) {
     return false;
   }
-  if () {
+  if (null) {    
+    return false;
+  }
+  if (null) { 
     return false;
   }
   return true;
 }
 
-//Function to validate Occupation
-function validateOccupation(input) {
-  if () {
-    return false;
-  }
-  if () {
-    return false;
-  }
-  return true;
-}
 
 // Function to validate occupation
 function validateOccupation(input) {
-  if () {
+
+   /* Spec 5.4: Validate Occupation  
+
+    - Ensure the input is not empty.  
+    - Allow only alphabetic characters, spaces, and hyphens.  
+    - Display an error message if validation fails.  
+  */
+
+  if (null) {
     return false;
   }
-  if () {
+  if (null) {
+    
     return false;
   }
   return true;
 }
 
+
 // Function to validate email address
 function validateEmail(input) {
-  if () {
-    return false;
-  }
-   // Regular expression to validate email format
-   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   if () {
-     return false;
-   }
- 
-   return true;
+
+   /* Spec 5.5: Validate Email  
+
+    - Ensure the input is not empty.  
+    - Validate email format (e.g., example@mail.com).  
+    - Display an error message if validation fails.  
+  */
+
+    if (null) {
+      return false;
+    }
+     // Regular expression to validate email format
+     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+     if (null) {
+       return false;
+     }
+   
+     return true;
+
  }
 
 // Function to ask for account details with validation
@@ -127,11 +115,16 @@ function askForChoice(account, parentMenu, mainMenu) {
     });
   };
 
+  /* Spec 5.6: Prompt user for the following:
+
+      - Validate the input   
+      - If validation fails, display an error message and re-prompt.  
+      - If valid, store the information and proceed to ask for next detail 
+  */
+
   const askLastName = () => {
     reader.question("", () => {
-      if (( , " ")) {
-    
-        askDOB();
+      if (null( null, "")) {
       } else {
         askLastName(); // Re-prompt if validation fails
       }
@@ -139,28 +132,27 @@ function askForChoice(account, parentMenu, mainMenu) {
   };
 
   const askDOB = () => {
-    reader.question(
-      if () {
-        
+    reader.question("", () => {
+      if (null()) {
       } else {
-         // Re-prompt if validation fails
+        askDOB(); // Re-prompt if validation fails
       }
     });
   };
 
   const askAddress = () => {
-  
-        
+    reader.question("", () => {
+      if (null()) {
       } else {
-        // Re-prompt if validation fails
+        askAddress(); // Re-prompt if validation fails
       }
     });
   };
 
   const askOccupation = () => {
-
-      if () {
-        
+    reader.question("", () => {
+      if (null()) {
+        askEmailAddress(account, () => {
         console.log();
         // Save the account to the JSON file
         fileHandler.saveToFile(account);
@@ -177,9 +169,9 @@ function askForChoice(account, parentMenu, mainMenu) {
   askFirstName(); // Start the process
 }
 const askEmailAddress = (account, nextStep) => {
-  reader.question("Email Address: ", (email) => {
-    if (()) {
-       // Save the email to the account object
+  reader.question("", () => {
+    if (null()) {
+      // Save the email to the account object
       nextStep(); // Proceed to the next step
     } else {
       askEmailAddress(account, nextStep); // Re-prompt if validation fails
@@ -254,11 +246,15 @@ function viewCreatedAccount(account, mainMenu) {
   const accounts = fileHandler.retrieveFromFile(); // Read all accounts from the file
   const createdAccount = accounts.find((acc) => acc.id === account.id); // Find the newly created account
 
-  //View the newly created Accounts Details 
   if (createdAccount) {
     console.log(`\nViewing Created Account:\n`);
     console.log(`${colours.gold}----------------------------------------${colours.reset}`);
-    //Here should print the Newly created Account details
+    console.log(`First Name: ${account.firstName || "N/A"}`);
+    console.log(`Last Name: ${account.lastName || "N/A"}`);
+    console.log(`Date of Birth: ${account.dob || "N/A"}`);
+    console.log(`Address: ${account.address || "N/A"}`);
+    console.log(`Occupation: ${account.occupation || "N/A"}`);
+    console.log(`Email Address: ${account.email || "N/A"}`);
     console.log(`${colours.gold}----------------------------------------${colours.reset}\n`);
   } else {
     console.log("\Account not found.\n");

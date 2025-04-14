@@ -5,14 +5,23 @@ const ConsoleColours = require("../utility/console_colours");
 const colours = new ConsoleColours();
 const reader = new Reader();
 const accountsFileHandler = new FileHandler("./data/accounts_storage.json");
+
+
 const { viewCreatedPolicy } = require("./view_created_policy");
 
-// Available coverage options
+function createNewPolicy(mainMenu) {
+  console.log("\n Welcome to the Policy Creation Wizard!");
+
+  // Available coverage options
 const coverageOptions = [
-  { type: "Comprehensive", selected: false },
-  { type: "Third Party", selected: false },
-  { type: "Collision", selected: false },
-  { type: "Liability", selected: false },
+
+ /* Spec 4.1: Define Coverage Options  
+
+   - Create an array called `coverageOptions`.  
+   - Include four coverage types
+   - Each coverage option should be an object with properties
+*/  
+
 ];
 
 // Available modification options
@@ -23,8 +32,6 @@ const modificationOptions = [
   { type: "Spoiler", selected: false },
 ];
 
-function createNewPolicy(mainMenu) {
-  console.log("\n Welcome to the Policy Creation Wizard!");
   const policy = {
     policyNumber: Math.random().toString(36).substring(2, 9),
     vehicles: [],
@@ -57,201 +64,102 @@ function createNewPolicy(mainMenu) {
     }
   };
 
-  // Add the keypress event listener
+  // Keypress event listener
   process.stdin.on('keypress', handleEscape);
 
   // Function to ask for account number in which the policy is made for
   const askForAccountNumber = () => {
-    reader.question(
-      `Enter Account Number (Format: ALC100001): `,
-      (accountNumber) => {
-        if (handleExit(accountNumber)) return;
 
-        const accounts = accountsFileHandler.retrieveFromFile();
-        const account = accounts.find((acc) => acc.id === accountNumber);
+   /* Spec 4.2: Ask for Account Number  
 
-        if (!/^ALC\d+$/.test(accountNumber)) {
-          console.log(
-            "Invalid Account Number. Must start with ALC followed by numbers."
-          );
-          return askForAccountNumber();
-        }
-
-        if (!account) {
-          console.log(
-            "Account not found. Please enter a valid account number."
-          );
-          return askForAccountNumber();
-        }
-
-        policy.accountNumber = accountNumber;
-        askForNoClaimsDiscount(account);
-      }
-    );
+     - Prompt the user to enter an account number  
+     - Validate format: must start with "ALC" followed by numbers.  
+     - Check if the account exists in `accountsFileHandler.retrieveFromFile()`.  
+     - If valid, store in `policy.accountNumber` and call `askForNoClaimsDiscount(account)`.  
+  */
   };
 
   // Function to ask for No Claims Discount
   const askForNoClaimsDiscount = (account) => {
-    reader.question(
-      `Do you have a No Claims Discount? (yes/no): `,
-      (answer) => {
-        if (handleExit(answer)) return;
 
-        answer = answer.toLowerCase();
-        if (answer !== "yes" && answer !== "no") {
-          console.log("Invalid input. Please enter 'yes' or 'no'.");
-          return askForNoClaimsDiscount(account);
-        }
+    /* Spec 4.3: Ask for No Claims Discount  
 
-        policy.noClaimsDiscount = answer === "yes";
-        askForPenaltyPoints(account);
-      }
-    );
+     - Prompt user with "Do you have a No Claims Discount? (yes/no)".  
+     - Ensure input is "yes" or "no".  
+     - Store result in `policy.noClaimsDiscount`.  
+     - If valid, call `askForPenaltyPoints(account)`.  
+  */
   };
 
   // Function to ask for Penalty Points
   const askForPenaltyPoints = (account) => {
-    reader.question(`Enter the number of penalty points: `, (points) => {
-      if (handleExit(points)) return;
 
-      if (!/^\d+$/.test(points)) {
-        console.log("Invalid input. Please enter a valid number.");
-        return askForPenaltyPoints(account);
+    /* Spec 4.4: Ask for Penalty Points  
+
+     - Prompt user to enter number of penalty points.  
+     - Ensure input is a valid number (0-6).  
+     - If points > 6, display message and exit policy creation.  
+     - If points > 4, show warning about premium increase.  
+     - Store in `policy.penaltyPoints` and call `askForConvictions(account)`.  
+  */
       }
 
-      policy.penaltyPoints = parseInt(points);
-
-      // Check penalty points eligibility
-      if (policy.penaltyPoints > 6) {
-        console.log(
-          `\n${colours.gold}Policy submission cancelled. You have more than 6 penalty points.${colours.reset}\n`
-        );
-        mainMenu(); // Redirect back to the main menu
-        return;
-      } else if (policy.penaltyPoints > 4) {
-        console.log(
-          `\n${colours.gold}Warning: You have more than 4 penalty points. This may affect your premium.${colours.reset}\n`
-        );
-      }
-
-      askForConvictions(account);
-    });
   };
 
   // Function to ask for Convictions
   const askForConvictions = (account) => {
-    reader.question(`Do you have any convictions? (yes/no): `, (answer) => {
-      if (handleExit(answer)) return;
 
-      answer = answer.toLowerCase();
-      if (answer !== "yes" && answer !== "no") {
-        console.log("Invalid input. Please enter 'yes' or 'no'.");
-        return askForConvictions(account);
-      }
+   /* Spec 4.5: Ask for Convictions  
 
-      if (answer === "yes") {
-        reader.question(`Enter details of the convictions: `, (convictions) => {
-          if (handleExit(convictions)) return;
-          policy.convictions = convictions
-            .split(",")
-            .map((conviction) => conviction.trim());
-          askForVehicleMakeModel(account);
-        });
-      } else {
-        policy.convictions = [];
-        askForVehicleMakeModel(account);
-      }
-    });
+     - Prompt user: "Do you have any convictions? (yes/no)".  
+     - If "yes", ask for conviction details and store them in `policy.convictions`.  
+     - If "no", store an empty array.  
+     - Then call `askForVehicleMakeModel(account)`.  
+  */
+
   };
 
   // Function to ask user for vehicle details
   const askForVehicleMakeModel = (account) => {
-    reader.question(`Enter Make/Model of Car: `, (carModel) => {
-      if (handleExit(carModel)) return;
+   
+    /* Spec 4.6: Ask for Make/Model  
 
-      if (!/^[a-zA-Z0-9 ]+$/.test(carModel)) {
-        console.log(
-          "Invalid Make/Model. Only letters, numbers, and spaces allowed."
-        );
-        return askForVehicleMakeModel(account);
-      }
+     - Prompt user for:  
+       - Vehicle Make/Model (only letters, numbers, and spaces allowed).    
+  */
 
-      askForVehicleReg(account, { carModel });
-    });
   };
 
   const askForVehicleReg = (account, vehicle) => {
-    reader.question(
-      `Enter Car Registration (UK format expected, e.g., AB12 CDE): `,
-      (carReg) => {
-        if (handleExit(carReg)) return;
+     
+    /* Spec 4.7: Ask for Registration
 
-        if (!/^[A-Z]{2}\d{2} [A-Z]{3}$/.test(carReg)) {
-          console.log(
-            "Invalid Car Registration. Format should be two letters, two digits, space, three letters."
-          );
-          return askForVehicleReg(account, vehicle);
-        }
+     - Prompt user for:   
+       - Vehicle Registration (validate UK format).    
+  */
 
-        vehicle.carReg = carReg;
-        askForVehicleMileage(account, vehicle);
-      }
-    );
   };
 
   const askForVehicleMileage = (account, vehicle) => {
-    reader.question(`Enter Mileage (Numbers Only): `, (mileage) => {
-      if (handleExit(mileage)) return;
+    /* Spec 4.8: Ask for Vehicle Details  
 
-      if (!/^\d+$/.test(mileage)) {
-        console.log("Invalid mileage. Enter numbers only.");
-        return askForVehicleMileage(account, vehicle);
-      }
+     - Prompt user for:  
+       - Vehicle Mileage (ensure numeric input).  
 
-      vehicle.mileage = parseInt(mileage);
-      askForModifications(vehicle, account);
-    });
+     - Store details and call `askForModifications(vehicle, account)`.  
+  */
+
   };
 
   // Function to ask for modifications
   const askForModifications = (vehicle, account) => {
-    console.log(`\n${colours.navyBlue}Select Modifications:${colours.reset}`);
-    modificationOptions.forEach((option, index) => {
-      console.log(
-        `${index + 1}. ${option.type} ${option.selected ? "[Selected]" : ""}`
-      );
-    });
-    console.log(
-      `${modificationOptions.length + 1}. Proceed to Coverage Selection`
-    );
 
-    reader.question(
-      `${colours.gold}Enter your choice: ${colours.reset}`,
-      (choice) => {
-        if (handleExit(choice)) return;
+    /* Spec 4.9: Ask for Modifications  
 
-        const choiceNumber = parseInt(choice);
-
-        if (choiceNumber >= 1 && choiceNumber <= modificationOptions.length) {
-          // Toggle the selected state of the modification option
-          modificationOptions[choiceNumber - 1].selected =
-            !modificationOptions[choiceNumber - 1].selected;
-          askForModifications(vehicle, account); // Stay in the menu to select more options
-        } else if (choiceNumber === modificationOptions.length + 1) {
-          // Add selected modifications to the vehicle
-          vehicle.mods = modificationOptions
-            .filter((option) => option.selected)
-            .map((option) => option.type);
-          policy.vehicles.push(vehicle);
-          askForCoverageChoices(account);
-        } else {
-          console.log(
-            `\n${colours.gold}Invalid choice. Please try again.${colours.reset}\n`
-          );
-          askForModifications(vehicle, account);
-        }
-      }
-    );
+     - Display modification options  
+     - Allow users to select multiple modifications.  
+     - Store selected modifications   
+  */
   };
 
   // Function for coverage selection
@@ -259,15 +167,13 @@ function createNewPolicy(mainMenu) {
     console.log(
       `\n${colours.navyBlue}Select Coverage Options:${colours.reset}`
     );
-    coverageOptions.forEach((option, index) => {
-      console.log(
-        `${index + 1}. ${option.type} ${option.selected ? "[Selected]" : ""}`
-      );
-    });
-    console.log(
-      `${coverageOptions.length + 1}. Proceed to Premium Calculation`
-    );
 
+    /* Spec 4.10: Implement Coverage Selection Menu 
+
+     - Loop through `coverageOptions`   
+     - Indicate if an option is already selected  
+     - Add an extra option at the end to proceed to premium calculation.  
+  */
     reader.question(
       `${colours.gold}Enter your choice: ${colours.reset}`,
       (choice) => {
@@ -275,53 +181,30 @@ function createNewPolicy(mainMenu) {
 
         const choiceNumber = parseInt(choice);
 
+        // Validate the choice
+        if (isNaN(choiceNumber)) {
+          console.log(
+            `\n${colours.gold}Invalid input. Please enter a number.${colours.reset}\n`
+          );
+          return askForCoverageChoices(account);
+        }
+  
+
         if (choiceNumber >= 1 && choiceNumber <= coverageOptions.length) {
-          let selectedCoverage = coverageOptions[choiceNumber - 1];
-
-          let comprehensiveOption = coverageOptions.find(opt => opt.type === "Comprehensive");
-
-          // If Comprehensive is selected, prevent selecting any other options
-          if (comprehensiveOption.selected && selectedCoverage.type !== "Comprehensive") {
-            console.log(
-              `\n${colours.gold}Comprehensive already covers all other options. No need to select additional coverage.${colours.reset}`
-            );
-            askForCoverageChoices(account);
-            return;
-          }
-
-          if (selectedCoverage.type === "Comprehensive") {
-            // Toggle Comprehensive selection
-            if (selectedCoverage.selected) {
-              selectedCoverage.selected = false; // Unselect Comprehensive
-            } else {
-              selectedCoverage.selected = true; // Select Comprehensive
-              // Deselect all other coverage options
-              coverageOptions.forEach((option) => {
-                if (option.type !== "Comprehensive") option.selected = false;
-              });
-            }
-
-          } else {
-            // Toggle selection for other coverage options (if Comprehensive is NOT selected)
-            selectedCoverage.selected = !selectedCoverage.selected;
-          }
+          
+          // Spec 4.11: Implement Coverage Rules  
+ 
 
           askForCoverageChoices(account); // Stay in the menu to select more options
 
         } else if (choiceNumber === coverageOptions.length + 1) {
-          // Ensure at least one coverage is selected
-          const selectedCoverages = coverageOptions.filter((option) => option.selected);
 
-          if (selectedCoverages.length === 0) {
-            console.log(`\n${colours.gold}You must select at least one coverage option to proceed.${colours.reset}\n`);
-            askForCoverageChoices(account);
-          } else {
-            // Proceed to premium calculation
-            policy.coverages = selectedCoverages.map((option) => ({
-              coverageType: option.type,
-            }));
-            calculatePremium(account);
-          }
+         /* Spec 4.12: Implement validation for proceeding to premium calculation  
+
+          - Check if at least one coverage option is selected before proceeding.  
+          - If no coverage is selected, display an error message and re-prompt the user.  
+          - If valid, store selected coverages in `policy.coverages` and call `calculatePremium(account)`.  
+        */
 
         } else {
           console.log(`\n${colours.gold}Invalid choice. Please try again.${colours.reset}\n`);
@@ -331,43 +214,22 @@ function createNewPolicy(mainMenu) {
   };
 
   const calculatePremium = (account) => {
-    let basePremium = 100;
+   /* Spec 4.13: Calculate Premium  
 
-    // Apply No Claims Discount
-    if (policy.noClaimsDiscount) {
-      basePremium *= 0.8; // 20% discount
-    }
-
-    // Add penalty points surcharge
-    if (policy.penaltyPoints > 4) {
-      basePremium += 50 * (policy.penaltyPoints - 4); // £50 for each point above 4
-    }
-
-    // Add convictions surcharge
-    if (policy.convictions.length > 0) {
-      basePremium += 100; // £100 surcharge for convictions
-    }
-
-    // Add vehicle-related costs
-    policy.vehicles.forEach((vehicle) => {
-      basePremium += vehicle.mileage / 1000;
-      if (vehicle.mods && vehicle.mods.length > 0) basePremium += 50; // Add £50 for modifications
-    });
-
-    // Add coverage-related costs
-    policy.coverages.forEach((coverage) => {
-      if (coverage.coverageType === "Comprehensive") basePremium += 200;
-      if (coverage.coverageType === "Third Party") basePremium += 100;
-      if (coverage.coverageType === "Collision") basePremium += 150;
-      if (coverage.coverageType === "Liability") basePremium += 75;
-    });
-
-    policy.premium = basePremium;
-    console.log(
-      `\n${colours.navyBlue}Calculated Premium: £${policy.premium.toFixed(2)}${colours.reset
-      }`
-    );
-    offerOptions(account);
+     - Start with a base premium of £100.  
+     - Apply surcharges/discounts based on:  
+       - No Claims Discount (-20%).  
+       - Penalty Points (+£50 per point after 4).  
+       - Convictions (+£100 surcharge).  
+       - Vehicle mileage (+£1 per 1000 miles).  
+       - Modifications (+£50 if any modifications exist).  
+       - Coverage type:  
+         - Comprehensive (+£800).  
+         - Third Party, Fire and Theft (+£600).  
+         - Third Party Only (+£400).  
+         - Road Traffic Act Cover (+£250).  
+     - Store in `policy.premium` and display the final amount.   
+  */
   };
 
   const offerOptions = (account) => {
@@ -528,6 +390,6 @@ function createNewPolicy(mainMenu) {
   };
 
   askForAccountNumber();
-}
+
 
 module.exports = { createNewPolicy };
