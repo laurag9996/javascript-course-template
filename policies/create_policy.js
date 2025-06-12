@@ -41,6 +41,7 @@ function createNewPolicy(mainMenu) {
     noClaimsDiscount: false,
     penaltyPoints: 0,
     convictions: [],
+    createdAt: new Date().toISOString(),
   };
 
   const handleExit = (answer) => {
