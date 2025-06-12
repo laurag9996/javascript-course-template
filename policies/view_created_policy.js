@@ -41,13 +41,7 @@ function viewCreatedPolicy(account, mainMenu) {
 */
 
   console.log(`\n${colours.navyBlue}Policy Details:${colours.reset}`);
-  console.log(`Policy Holder: ${accountData.firstName + " " + accountData.lastName || "N/A"}`);
-  console.log(`Policy Number: ${latestPolicy.policyNumber || "N/A"}`);
-  console.log(`Status: ${latestPolicy.status || "N/A"}`);
-  console.log(`No Claims Discount: ${latestPolicy.noClaimsDiscount ? "Yes" : "No"}`);
-  console.log(`Penalty Points: ${latestPolicy.penaltyPoints || "N/A"}`);
-  console.log(`Convictions: ${latestPolicy.convictions.length > 0 ? latestPolicy.convictions.join(", ") : "N/A"}`);
-  console.log(`Premium: £${latestPolicy.premium.toFixed(2) || "N/A"}`);
+  
 
   if (latestPolicy.vehicles && latestPolicy.vehicles.length > 0) {
     console.log(`\n${colours.grey}Vehicles:${colours.reset}`);
