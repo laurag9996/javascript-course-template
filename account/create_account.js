@@ -14,18 +14,15 @@ let lastAccountID = fs.existsSync(counterFile) ? parseInt(fs.readFileSync(counte
 // Function to validate name input
 function validateName(input, fieldName) {
 
- //Spec 5.1: Ensure name contains only letters, spaces or hypens
+ //Spec 1.1: Ensure name contains only letters, spaces or hypens
 
 }
 
 // Function to validate date of birth (DD-MM-YYYY)
 function validateDOB(input) {
 
-   /* Spec 5.2: Check if the date follows the format and is a valid date 
+   /* Spec 1.2: Check if the date follows the format and is a valid date 
 
-          - Check if at least one coverage option is selected before proceeding.  
-          - If no coverage is selected, display an error message and re-prompt the user.  
-          - If valid, store selected coverages in `policy.coverages` and call `calculatePremium(account)`.  
           - Check if the input matches the DD-MM-YYYY format
           - Check if the date is valid (e.g., not 31-02-2000)
           - Calculate the age
@@ -37,7 +34,7 @@ function validateDOB(input) {
 // Function to validate address
 function validateAddress(input) {
 
-   /* Spec 5.3: Validate Address
+   /* Spec 1.3: Validate Address
   
         - Ensure email follows a proper format (e.g., example@mail.com)
         - Display an error message if validation fails.
@@ -59,7 +56,7 @@ function validateAddress(input) {
 // Function to validate occupation
 function validateOccupation(input) {
 
-   /* Spec 5.4: Validate Occupation  
+   /* Spec 1.4: Validate Occupation  
 
     - Ensure the input is not empty.  
     - Allow only alphabetic characters, spaces, and hyphens.  
@@ -80,7 +77,7 @@ function validateOccupation(input) {
 // Function to validate email address
 function validateEmail(input) {
 
-   /* Spec 5.5: Validate Email  
+   /* Spec 1.5: Validate Email  
 
     - Ensure the input is not empty.  
     - Validate email format (e.g., example@mail.com).  
@@ -115,7 +112,7 @@ function askForChoice(account, parentMenu, mainMenu) {
     });
   };
 
-  /* Spec 5.6: Prompt user for the following:
+  /* Spec 1.6: Prompt user for the following:
 
       - Validate the input   
       - If validation fails, display an error message and re-prompt.  

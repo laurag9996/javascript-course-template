@@ -24,7 +24,7 @@ function viewallpolicies(mainMenu) {
 
         account.policies.forEach((policy, index) => {
 
-            /* Spec 2.1: Display Policy Details
+            /* Spec 6.1: Display Policy Details
 
                - Print details like Policy Number, Holder Name, Status, etc.
                - Use `??` to handle missing values.
@@ -33,7 +33,7 @@ function viewallpolicies(mainMenu) {
 
             if (policy.vehicles && policy.vehicles.length > 0) {
 
-                /* Spec 2.2: Display Vehicle Details
+                /* Spec 6.2: Display Vehicle Details
 
                    - Loop through `policy.vehicles` and print each vehicle’s details.
                    - Include model, registration, mileage, and modifications.
@@ -63,7 +63,7 @@ function viewallpolicies(mainMenu) {
         });
     });
 
-   /* Spec 2.3: Prompt User to Return to the Main Menu
+   /* Spec 6.3: Prompt User to Return to the Main Menu
 
        - Use `reader.question()` to ask the user to press Enter.
        - Ensure `mainMenu` is called correctly if defined.

@@ -15,7 +15,7 @@ function createNewPolicy(mainMenu) {
   // Available coverage options
   const coverageOptions = [
 
-    /* Spec 4.1: Define Coverage Options  
+    /* Spec 2.1: Define Coverage Options  
    
       - Create an array called `coverageOptions`.  
       - Include four coverage types
@@ -70,7 +70,7 @@ function createNewPolicy(mainMenu) {
   // Function to ask for account number in which the policy is made for
   const askForAccountNumber = () => {
 
-    /* Spec 4.2: Ask for Account Number  
+    /* Spec 2.2: Ask for Account Number  
  
       - Prompt the user to enter an account number  
       - Validate format: must start with "ALC" followed by numbers.  
@@ -82,7 +82,7 @@ function createNewPolicy(mainMenu) {
   // Function to ask for No Claims Discount
   const askForNoClaimsDiscount = (account) => {
 
-    /* Spec 4.3: Ask for No Claims Discount  
+    /* Spec 2.3: Ask for No Claims Discount  
 
      - Prompt user with "Do you have a No Claims Discount? (yes/no)".  
      - Ensure input is "yes" or "no".  
@@ -94,7 +94,7 @@ function createNewPolicy(mainMenu) {
   // Function to ask for Penalty Points
   const askForPenaltyPoints = (account) => {
 
-    /* Spec 4.4: Ask for Penalty Points  
+    /* Spec 2.4: Ask for Penalty Points  
 
      - Prompt user to enter number of penalty points.  
      - Ensure input is a valid number (0-6).  
@@ -102,12 +102,12 @@ function createNewPolicy(mainMenu) {
      - If points > 4, show warning about premium increase.  
      - Store in `policy.penaltyPoints` and call `askForConvictions(account)`.  
   */
-  }
+  };
 
   // Function to ask for Convictions
   const askForConvictions = (account) => {
 
-    /* Spec 4.5: Ask for Convictions  
+    /* Spec 2.5: Ask for Convictions  
   
       - Prompt user: "Do you have any convictions? (yes/no)".  
       - If "yes", ask for conviction details and store them in `policy.convictions`.  
@@ -120,7 +120,7 @@ function createNewPolicy(mainMenu) {
   // Function to ask user for vehicle details
   const askForVehicleMakeModel = (account) => {
 
-    /* Spec 4.6: Ask for Make/Model  
+    /* Spec 2.6: Ask for Make/Model  
   
      - Prompt user for:  
        - Vehicle Make/Model (only letters, numbers, and spaces allowed).    
@@ -130,7 +130,7 @@ function createNewPolicy(mainMenu) {
 
   const askForVehicleReg = (account, vehicle) => {
 
-    /* Spec 4.7: Ask for Registration
+    /* Spec 2.7: Ask for Registration
   
      - Prompt user for:   
        - Vehicle Registration (validate UK format).    
@@ -139,7 +139,7 @@ function createNewPolicy(mainMenu) {
   };
 
   const askForVehicleMileage = (account, vehicle) => {
-    /* Spec 4.8: Ask for Vehicle Details  
+    /* Spec 2.8: Ask for Vehicle Details  
   
      - Prompt user for:  
        - Vehicle Mileage (ensure numeric input).  
@@ -152,7 +152,7 @@ function createNewPolicy(mainMenu) {
   // Function to ask for modifications
   const askForModifications = (vehicle, account) => {
 
-    /* Spec 4.9: Ask for Modifications  
+    /* Spec 2.9: Ask for Modifications  
   
      - Display modification options  
      - Allow users to select multiple modifications.  
@@ -166,7 +166,7 @@ function createNewPolicy(mainMenu) {
       `\n${colours.navyBlue}Select Coverage Options:${colours.reset}`
     );
 
-    /* Spec 4.10: Implement Coverage Selection Menu 
+    /* Spec 2.10: Implement Coverage Selection Menu 
   
      - Loop through `coverageOptions`   
      - Indicate if an option is already selected  
@@ -190,14 +190,14 @@ function createNewPolicy(mainMenu) {
 
         if (choiceNumber >= 1 && choiceNumber <= coverageOptions.length) {
 
-          // Spec 4.11: Implement Coverage Rules  
+          // Spec 2.11: Implement Coverage Rules  
 
 
           askForCoverageChoices(account); // Stay in the menu to select more options
 
         } else if (choiceNumber === coverageOptions.length + 1) {
 
-          /* Spec 4.12: Implement validation for proceeding to premium calculation  
+          /* Spec 2.12: Implement validation for proceeding to premium calculation  
   
            - Check if at least one coverage option is selected before proceeding.  
            - If no coverage is selected, display an error message and re-prompt the user.  
@@ -212,7 +212,7 @@ function createNewPolicy(mainMenu) {
   };
 
   const calculatePremium = (account) => {
-    /* Spec 4.13: Calculate Premium  
+    /* Spec 2.13: Calculate Premium  
   
       - Start with a base premium of £100.  
       - Apply surcharges/discounts based on:  

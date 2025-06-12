@@ -9,7 +9,7 @@ const fileHandler = new FileHandler("./data/accounts_storage.json");
 // Function to validate policy number input
 function validatePolicyNumber(input) {
 
-   /* Spec 1.1: Implement validation logic
+   /* Spec 5.1: Implement validation logic
 
    - Check if the input is empty and display an error message.
    - Ensure the policy number is at least 5 characters long.
@@ -51,7 +51,7 @@ function searchQueriedPolicy(query, policiesMenu, mainMenu) {
     const existingData = fileHandler.retrieveFromFile();
     let foundPolicies = [];
 
-     /* Spec 1.2: Loop through existingData and find policies matching query.policyNumber
+     /* Spec 5.2: Loop through existingData and find policies matching query.policyNumber
 
      - Iterate through accounts
      - Check if they have policies
@@ -69,7 +69,7 @@ function searchQueriedPolicy(query, policiesMenu, mainMenu) {
         policies.forEach((policy, policyIndex) => {
           console.log(`\n${colours.navyBlue}Policy ${policyIndex + 1}:${colours.reset}`);
 
-           /* Spec 1.3: Display policy details
+           /* Spec 5.3: Display policy details
 
            - Policy Number
            - Account Number
@@ -115,7 +115,7 @@ function searchQueriedPolicy(query, policiesMenu, mainMenu) {
 function askToTryAgain(policiesMenu, mainMenu) {
   const ask = () => {
 
-/* Spec 1.4: Ask the user if they want to try again
+/* Spec 5.4: Ask the user if they want to try again
 
     - Use reader.question to prompt: "Do you want to try searching again? (yes/no)"
     - Validate input using validateYesNoInput function

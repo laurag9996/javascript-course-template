@@ -7,7 +7,7 @@ const colours = new ConsoleColours();
 const reader = new Reader();
 const fileHandler = new FileHandler("./data/accounts_storage.json");
 
-// Spec 6.1: Function to validate name input
+// Spec 4.1: Function to validate name input
 function validateName(input, fieldName) {
   if (!input || input.trim() === "") {
      //Name field cannot be empty
@@ -23,7 +23,7 @@ function validateName(input, fieldName) {
 // Function to ask for account details
 function askForChoice(callback) {
 
-  /* Spec 6.2: Prompt User for First and Last Name 
+  /* Spec 4.2: Prompt User for First and Last Name 
 
      - Ask for first name using `reader.question()`.  
      - Validate input using `validateName()`.  
@@ -46,7 +46,7 @@ function searchQueriedAccount(query, accountsmenu, mainMenu) {
       return;  
     }
 
-   /* Spec 6.3: Search for Matching Accounts  
+   /* Spec 4.3: Search for Matching Accounts  
 
        - Filter `existingData` to find accounts where first and last names match `query`.  
        - If no matches are found, display a message and call `askToTryAgain()`.  
@@ -66,7 +66,7 @@ function searchQueriedAccount(query, accountsmenu, mainMenu) {
       accounts.forEach((account, index) => {
         console.log(`${colours.gold}-------- Account ${index + 1} --------${colours.reset}`);
        
-        /* Spec 6.4: Display Matching Accounts  
+        /* Spec 4.4: Display Matching Accounts  
 
          - Loop through `accounts` and display the following details:  
            - Account ID  
@@ -98,7 +98,7 @@ function searchQueriedAccount(query, accountsmenu, mainMenu) {
 
 function askToTryAgain(accountsmenu, mainMenu) {
 
-   /* Spec 6.5: Ask User if They Want to Try Again  
+   /* Spec 4.5: Ask User if They Want to Try Again  
 
      - Ask the user: "Do you want to search again? (yes/no)".  
      - If "yes", restart `searchAccount()`.  
